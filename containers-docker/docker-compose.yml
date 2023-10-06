@@ -1,7 +1,7 @@
 version: '3'
 services:
     backend:
-        image: poc-large-files/backend
+        image: tag-backend
         ports: 
             - '3000:3000'
         build: 
@@ -10,23 +10,13 @@ services:
         volumes:
             - /app/node_modules 
             - ./backend-app:/app
-    frontend_api: 
-        image: poc-large-files/frontend-api
+    frontend: 
+        image: tag-frontend
         ports: 
             -  '3001:3001'
         build: 
             dockerfile: Dockerfile
-            context: ./frontend/api-component 
+            context: ./frontend
         volumes:
             - /app/node_modules 
-            - ./frontend-api:/app
-    frontend_ui: 
-        image: poc-large-files/frontend-ui
-        ports: 
-            -  '3002:3002'
-        build: 
-            dockerfile: Dockerfile
-            context: ./frontend/ui-component 
-        volumes:
-            - /app/node_modules 
-            - ./frontend-ui:/app
+            - ./frontend-app:/app
