@@ -1,3 +1,4 @@
+#example Dockerfile to create a nodejs based image
 FROM node:18-alpine
 
 #ENV NODE_ENV production
@@ -11,6 +12,8 @@ WORKDIR /usr/src/app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY --chown=node:node package*.json ./
+
+#comment this line for plain Javascript project (not typescript project)
 COPY --chown=node:node tsconfig.json ./
 
 RUN npm ci
