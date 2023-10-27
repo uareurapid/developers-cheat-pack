@@ -1,5 +1,9 @@
-version: '3'
-services:
+# the following is an example of a custom composition with 2 parts/images
+# a 'backend' image/app and a 'frontend' image/app 
+# inside the 'backend' and 'frontend' folders there is a Dockerfile example for a NodeJs app
+# replace 'tag-backend' and 'tag-frontend' with the corresponding image/tags names
+# after you build the images (using for instance the build_image.sh script on the parent folder)
+# Please visit https://www.docker.com/ for more information
     backend:
         image: tag-backend
         ports: 
