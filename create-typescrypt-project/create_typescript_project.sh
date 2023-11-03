@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #script to create a basic typescrypt project skeleton
+#in this example we use NodeNext (ESM) modules
 #mandatory args: the folder/project name
 
 if [ $# -eq 0 ]
@@ -18,8 +19,8 @@ fi
 
 npm_result=`npm --version`
 
-echo "Checking requirements..."
-if [[ $npx_result =~ ^[0-9]+(\.[0-9]+){2,3}$ ]]; 
+echo "Checking requirements...$npm_result"
+if [[ $npm_result =~ ^[0-9]+(\.[0-9]+){2,3}$ ]]; 
 then
   echo 'node and npm exist, prooceeding...'
 else 
@@ -45,20 +46,25 @@ cat <<EON >> nodemon.json
 }
 EON
 
+#we are gonna use Node 20 (LTS) version here
+echo "v20.9.0" > .npmrc
+
+
 #edit the options belllow if needed
 cat <<EOT >> tsconfig.json
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "NodeNext",
     "esModuleInterop": true,
-    "target": "es6",
-    "moduleResolution": "node",
+    "target": "es2022",
+    "moduleResolution": "NodeNext",
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,         
     "noImplicitAny": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowJs": true
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules","src/**/*.spec.ts"]
@@ -70,6 +76,10 @@ npm pkg set 'scripts.clean'='rm -rf ./dist'
 npm pkg set 'scripts.dev'='npx nodemon'
 npm pkg set 'scripts.build'='npm run clean && tsc'
 npm pkg set 'scripts.start'='npm run build && node dist/index.js'
+npm pkg set 'type'='module'
+#set node version to latest LTS version at the moment
+npm pkg set 'engines.npm'='>8.0.0'
+npm pkg set 'engines.node'='>=20.9.1'
 
 #run to see if it worked
 npm run start

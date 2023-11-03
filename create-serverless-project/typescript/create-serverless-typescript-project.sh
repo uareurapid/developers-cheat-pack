@@ -73,6 +73,8 @@ npm install
 serverless plugin install -n serverless-typescript
 serverless plugin install -n serverless-offline
 
+#Notes: for an alternative way of configuring serverless, like using serverless.yml file
+#check the project configuration on the "javascript" folder
 cat <<EOF > serverless.ts
 import type { AWS } from '@serverless/typescript';
 
